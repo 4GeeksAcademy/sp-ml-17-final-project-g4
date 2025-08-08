@@ -3,6 +3,7 @@ __pycache__
 .learn
 
 # Data & models folders in Data Science & Machine Learing Projecto
+data/raw
 # data/
 # models/
 

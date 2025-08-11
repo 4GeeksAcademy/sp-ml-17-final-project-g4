@@ -9,9 +9,7 @@ We will have to find a suitable dataset to work with, process it, train a model 
 ## 👥  Credits
 
 **Team Members:**
-> - Member 1
-> - Member 2
-> - Member 3
+> - José Vicente Vareles Martínez
 
 **Academy:** 
 > - [4Geeks Academy](https://4geeksacademy.com/us/index) 
@@ -30,10 +28,19 @@ The goal of this project is to develop a complete end-to-end Machine Learning so
 
 ## 🚀 Project Overview
 
-*[This section will be updated as we define our specific project scope and objectives]*
+Intelligent Data Analysis Industrial 
+Challenge 2024  - Developing an Effective 
+Predictive Model for Imminent Component X Failures 
+in Heavy-Duty Scania Trucks
 
 ### Problem Statement
-*To be defined - we will identify a real-world problem that can be solved using Machine Learning techniques*
+ 
+The goal is to develop a predictive model (or models) that can accurately predict whether a specific 
+engine component (hereinafter referred to as ‘Component X‘) in a vehicle is at risk of imminent failure. 
+The task is to come up with a good prediction 
+model (or models) for judging whether or not a vehicle faces imminent failure of the specific engine 
+Component X or not. 
+Link: https://doi.org/10.5878/bnh5-ka77
 
 ### Dataset
 *To be defined - we will acquire a dataset that meets the following minimum requirements:*

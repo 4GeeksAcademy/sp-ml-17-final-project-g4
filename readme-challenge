@@ -20,99 +20,110 @@ Now it's time to design, implement, and deploy our own project using the algorit
 
 ---
 
-## 🎯 Project Goal
-The goal of this project is to develop a **complete end-to-end Machine Learning solution** that includes:
+## 🎯 Challenge Goal
 
-- Data acquisition and processing  
-- Exploratory Data Analysis (EDA)  
-- Feature engineering  
-- Model development, evaluation, and optimization  
-- Web application deployment  
-- Real-world problem-solving through ML techniques  
+Develop a predictive model that determines the risk of imminent failure for Component X in Scania trucks, based on operational time series data and vehicle specifications. The model must output a risk class (0–4) for each vehicle, indicating windows of imminent failure.
 
 ---
 
-## 🚀 Project Overview
-**Intelligent Data Analysis Industrial Challenge 2024 – Developing an Effective Predictive Model for Imminent Component X Failures in Heavy-Duty Scania Trucks**  
+## 🚀 Overview
 
-**Problem Statement**  
-The objective is to develop a predictive model that can accurately determine whether a specific engine component (hereinafter referred to as *Component X*) in a truck is at risk of imminent failure.  
-This task requires designing a robust model (or models) capable of classifying vehicles into *failure risk* or *no failure risk* categories.  
-Reference link to original challenge: [https://doi.org/10.5878/bnh5-ka77](https://doi.org/10.5878/bnh5-ka77)  
+### Problem Statement
 
----
+Given anonymized operational readouts (sensor/counter data, histograms) and vehicle specification features, predict for each truck its risk window for Component X failure:
+- **Classes:**
+  - **0:** No imminent failure
+  - **1:** 48–24 time units before failure
+  - **2:** 24–12 time units before failure
+  - **3:** 12–6 time units before failure
+  - **4:** 6–0 time units before failure
 
-## 📊 Dataset
-**Source**: IDA Challenge 2024 – Scania Trucks Dataset  
+Predictions must be made for a single "current snapshot" per vehicle (i.e., up to the last available readout).
 
-- **Size**: 60,000+ instances  
-- **Features**: Operational readings, vehicle specifications, and failure labels  
-- **Variables**: > 20 predictor variables (including categorical features)  
-- **Data Files**:
-  - `train_operational_readouts.csv`
-  - `train_tte.csv`
-  - `train_specifications.csv`
-  - `validation_operational_readouts.csv`
-  - `validation_labels.csv`
-  - `validation_specifications.csv`
+### Dataset
 
----
+- **Operational Readouts:** Time series & histogram features, anonymized.
+- **Vehicle Specifications:** Categorical features (engine type, wheel config, etc.).
+- **Train Set:** Full time series per vehicle, with failure/repair labels.
+- **Validation/Test:** Data up to a randomly selected "last readout" per vehicle.
+- **Test:** No labels provided; predictions must cover all vehicles in test set.
 
-## 🧭 Methodology
-1. **Problem Definition** – Translating the industrial challenge into a supervised classification problem.  
-2. **Data Acquisition** – Using publicly available datasets provided by Scania through the IDA Challenge.  
-3. **Data Storage** – Organizing raw, intermediate, and processed datasets in a structured repository.  
-4. **Descriptive Analysis** – Initial statistical analysis to understand data distributions and relationships.  
-5. **Exploratory Data Analysis (EDA)** – Detecting patterns, correlations, missing values, and feature importance.  
-6. **Feature Engineering** – Encoding categorical variables, handling missing data, and creating meaningful features.  
-7. **Model Building** – Training baseline and optimized models (Decision Trees, Random Forest, XGBoost).  
-8. **Model Evaluation** – Using traditional metrics (accuracy, recall, precision, F1-score) and cost-sensitive evaluation based on the challenge's cost matrix.  
-9. **Deployment** – Creating an interactive Streamlit application for predictions and visualizations.  
+### Evaluation
+
+- **Metric:** Cost-based penalty system
+  - **Late/Missed Alarms:** High cost (200–500 per missed failure)
+  - **False Alarms:** Lower cost (7–10 per unnecessary check)
+- **Goal:** Minimize total cost (not simply maximize accuracy)
 
 ---
 
-## 📝 Project Phases
-- **Step 1:** Problem definition and dataset selection ✅  
-- **Step 2:** Data acquisition and initial exploration  
-- **Step 3:** Data cleaning and feature engineering  
-- **Step 4:** Descriptive statistics and hypothesis testing  
-- **Step 5:** Full EDA and train/test split  
-- **Step 6:** Model training, optimization, and cost evaluation  
-- **Step 7:** Deployment on Streamlit Cloud  
+## 📝 Workflow & Methodology
+
+### 1. Data Preparation
+- Aggregate time series and histogram features up to each vehicle's last readout.
+- One-hot encode categorical specs.
+- Feature engineering: trends, last values, statistical summaries, etc.
+
+### 2. Model Development
+- Train cost-sensitive classifiers (e.g., LightGBM, XGBoost, CatBoost, or deep learning if appropriate).
+- Tune thresholds for minimum expected cost using validation set.
+- Experiment with ensemble approaches and calibration.
+
+### 3. Evaluation
+- Simulate test scenario on validation set (current snapshot per vehicle).
+- Optimize for cost, not just class accuracy.
+
+### 4. Submission
+- **Predictions:** CSV file, one line per test vehicle, format:
+  ```
+  vehicle_id,predicted_class
+  12345,2
+  12346,0
+  ```
+- **Paper:** Written report detailing methodology, experiments, and insights (conference template).
 
 ---
 
 ## 📁 Project Structure
+
 ```
-ml-project-repo/
-├── 📁 data/                # Raw and processed datasets
-│    ├── 📁 interim/        # Intermediate transformed data
-│    ├── 📁 processed/      # Final data for modeling
-│    ├── 📁 raw/            # Original raw CSVs
-├── 📁 database/            # SQL scripts and configs
-├── 📁 docs/                # Documentation, dataset notes, and presentation
-├── 📁 models/              # Saved model artifacts (.pkl)
-├── 📁 notebooks/           # Jupyter notebooks (EDA, modeling)
-├── 📁 src/                 # Source code for preprocessing, modeling
-├── 📁 webapp/              # Streamlit application
+ida-2024-industrial-challenge/
+├── data/                # Raw and processed datasets
+│    ├── interim/        # Intermediate transformed data
+│    ├── processed/      # Final modeling data
+│    ├── raw/            # Unprocessed originals
+├── models/              # Trained model artifacts
+├── notebooks/           # Jupyter notebooks for EDA and modeling
+├── src/                 # Source code modules
+├── submissions/         # Submission CSVs and report
+├── docs/                # Documentation and challenge materials
+├── webapp/              # (Optional) Application for demo/visualization
 ```
 
 ---
 
 ## 🛠️ Technologies Used
-- **Languages:** Python 3.11  
-- **Data Analysis:** Pandas, NumPy  
-- **Visualization:** Matplotlib, Seaborn, Plotly  
-- **Machine Learning:** Scikit-learn, XGBoost  
-- **Deployment:** Streamlit Cloud  
-- **Version Control:** Git & GitHub  
+
+- Python (Pandas, NumPy, scikit-learn, LightGBM/XGBoost/CatBoost, etc.)
+- Jupyter Notebook
+- (Optional) Flask/Streamlit for web app
+- SQL database for data storage (if needed)
 
 ---
 
 ## 📊 Results
-*(To be updated after model evaluation)*
+
+*To be updated with model performance, insights, and cost metric achieved on validation/test sets.*
 
 ---
 
 ## 🌐 Live Demo
-*(To be added after deployment)*
+
+*Link to be added if a web application is deployed for visualization or model serving.*
+
+---
+
+## 📄 References
+
+- [IDA 2024 Industrial Challenge Description](https://doi.org/10.5878/bnh5-ka77)
+- Scania truck predictive maintenance data (see challenge link for access)

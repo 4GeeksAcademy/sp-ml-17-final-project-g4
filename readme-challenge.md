@@ -12,11 +12,11 @@ Now it's time to design, implement, and deploy our own project using the algorit
 **Team Members**:  
 - José Vicente Vareles Martínez  
 
-**Academy**:  
-- 4Geeks Academy  
-**Bootcamp**: Spain-DS-17  
-**Mentor**: Ing. Héctor Chocobar Torrejón  
-**Teacher Assistant**: Beatriz Solana Ros  
+**Academy:** 
+> - [4Geeks Academy](https://4geeksacademy.com/us/index) 
+> - **Bootcamp:** Spain-DS-17 
+> - **Mentor:** [Ing. Héctor Chocobar Torrejón](https://github.com/hchocobar/)
+> - **Teacher Assitant:** [Beatriz Solana Ros](https://github.com/mezcolantriz)
 
 ---
 

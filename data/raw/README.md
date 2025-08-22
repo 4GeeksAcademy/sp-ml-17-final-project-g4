@@ -11,3 +11,4 @@ Files expected:
 - validation_specs.csv
 - test_operational_readouts.csv
 - test_specs.csv
+- test_labels.csv
